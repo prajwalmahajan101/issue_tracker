@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row d-flex justify-content-around">
+        <div class="card col-11 m-3 p-3">
+            <form id="project-create-form" method="post" action="/projects/create">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Project Name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="des" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="des" name="description" placeholder="Project Description" required>
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author</label>
+                    <input type="text" class="form-control" id="author" name="author" placeholder="Project Author" required>
+                </div>
+                <div class="mb-3 d-flex flex-row-reverse">
+                    <button type="submit" class="btn btn-dark"> Create Project </button>
+                </div>
+            </form>
+        </div>
+        <div class="card col-11 card p-3 m-3">
+            <h1 class="m-3">Project List :</h1>
+            <ul id="projects-list" class="d-flex flex-column text-center p-3 h4" style="list-style: none">
+                    <% for (let project of projects) {%>
+                        <li class="col-11 m-2"><a href="/projects/<%= project.id%>"><%= project.name %></a></li>
+                    <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/home.js"></script>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap Css file -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- footer Css file -->
+    <link rel="stylesheet" href="/css/footer.css">
+    <!-- import Styles form the files-->
+    <%- style %>
+    <style>
+        .space1709{
+            height: 70px;
+            white-space: nowrap;
+        }
+    </style>
+    <title><%= title %></title>
+</head>
+<body >
+<!-- Header -->
+<%- include('./partials/__header')%>
+<div class="m-1 space1709"></div>
+
+<!--Part to filled in the Layout-->
+<%- body %>
+<div class="m-1 space1709"></div>
+<%- include('./partials/__footer')%>
+
+<!--Bootstrap Js File-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!--JQuery-->
+<script src="/js/jquery.min.js"></script>
+<!--Import Scripts-->
+<%- script %>
+</body>
+</html>
