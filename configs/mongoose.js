@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-// const env = require('../env')
+const env = require('../env')
 
-const DBUrl  = process.env.DBUrl || 'mongodb://localhost:27017'
+const DBUrl  = env.DBUrl || 'mongodb://localhost:27017'
 
 mongoose.connect(DBUrl)
 
