@@ -72,11 +72,18 @@ exports.filter =async (req,res) =>{
         path:'issues',
         match:filterData
     })
-    let filtered_issues = project.issues.filter((el)=>{
-        for(let label of labels) if(el.labels.includes(label)) return true
-        return false
-    })
+    let filtered_issues = []
 
+    if(labels.length>0) {
+        for(let issue of project.issues){
+            for(let label of labels){
+                if(issue.labels.includes(label) && !filtered_issues.includes(issue)) filtered_issues.push(issue)
+            }
+        }
+    }
+    else{
+        filtered_issues = [...project.issues]
+    }
     res.render('project_details',{
         title:'Project Details',
         project:project,
