@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row d-flex justify-content-around">
+        <div class="col-11 card p-3 m-3 ">
+            <h1 class="m-2">Title of Issue : <%= issue.title%></h1>
+            <h2 class="m-2">Author of Issue : <%= issue.author%></h2>
+            <h3 class="m-2">Project : <a class="text-decoration-none" href="/projects/<%=issue.project.id%>"><%= issue.project.name %></a></h3>
+            <h4 class="m-2">Labels : <%= issue.labels.join(', ') %></h4>
+            <h5 class="m-2">Description : <%= issue.description%></h5>
+        </div>
+    </div>
+</div>
