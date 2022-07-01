@@ -5,16 +5,35 @@
                 <h2>Project's Name : <%= project.name%></h2>
                 <h4>Project's Author : <%= project.author%></h4>
                 <h5>Project's Description : <%= project.description%></h5>
-                <a class="text-decoration-none" href="/projects/filter/<%= project.id %>">
-                    <button class="btn btn-primary">Filter Issues</button>
-                </a>
+
+                <p>
+                    <button class="btn btn-dark " type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="true" aria-controls="issueFilter issueCreate">
+                        Toggle Form
+                    </button>
+                </p>
+                <div class="collapse multi-collapse show" id="issueCreate">
+                    <div class="card card-body">
+                        <%- include('./partials/__issue_create_form')%>
+                    </div>
+                </div>
+                <div class="collapse multi-collapse" id="issueFilter">
+                    <div class="card card-body">
+                        <%- include('./partials/__project_issue_filter')%>
+                    </div>
+                </div>
+
             </div>
-            <%- include('./partials/__issue_create_form')%>
+
             <div class="col-11 card p-3 m-3">
                 <h1 class="m-3">Issue List :</h1>
                 <ul id="issues-list" class="d-flex flex-column text-center p-3 h4" style="list-style: none">
                         <% for (let issue of issues) {%>
-                            <li class="col-11 m-2"><a href="/issues/<%= issue.id%>"><%= issue.title %></a></li>
+                        <div class="col-11 card p-3 m-3 ">
+                            <h1 class="m-2">Title of Issue :<a href="/issues/<%= issue.id%>"><%= issue.title %></a></h1>
+                            <h2 class="m-2">Author of Issue : <%= issue.author%></h2>
+                            <h4 class="m-2">Labels : <%= issue.labels.join(', ') %></h4>
+                            <h5 class="m-2">Description : <%= issue.description%></h5>
+                        </div>
                         <% } %>
                 </ul>
             </div>

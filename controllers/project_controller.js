@@ -34,13 +34,13 @@ module.exports.create = async (req,res) =>{
 module.exports.detail = async (req,res) =>{
     let id = req.params.id
     try {
-        let project = await Project.findById(id).populate('issues')
+        let project = await Project.findById(id).populate({path:'issues',options: { sort: '-createdAt'}})
         if(! project){
             return res.render('page_not_found',{
                 title:'404'
             })
         }
-        let issues = await Issue.find({project:id}).sort({'createdAt': 'desc'})
+        let issues = project.issues
         res.render('project_details',{
             title:'Project Details',
             project:project,
@@ -55,21 +55,35 @@ module.exports.detail = async (req,res) =>{
     }
 }
 
-exports.filterGet = async (req,res) =>{
-    let id = req.params.id
-    let project = await Project.findById(id)
-    if(! project){
-        return res.render('page_not_found',{
-            title:'404'
-        })
-    }
-    res.render('project_issue_filter',{
-        title:"Filter",
-        project:project
 
+exports.filter =async (req,res) =>{
+    let labels = []
+    if(req.body.labels){
+        if(typeof(req.body.labels)==="string") req.body.labels = [req.body.labels]
+        labels = [...req.body.labels]
+    }
+    let filterData = {}
+    if(req.body.title!=='') filterData.title=req.body.title
+    if(req.body.description!=='') filterData.description=req.body.description
+    if(req.body.author!=='') filterData.author=req.body.author
+    let id = req.body.project
+
+    let project = await Project.findById(id).populate({
+        path:'issues',
+        match:filterData
+    })
+    let filtered_issues = []
+    if(labels.length>0) {
+        for(let issue of project.issues){
+            for(let label of labels){
+                if(issue.labels.includes(label) && !filtered_issues.includes(issue)) filtered_issues.push(issue)
+            }
+        }
+    }
+    res.render('project_details',{
+        title:'Project Details',
+        project:project,
+        issues:filtered_issues
     })
 
-}
-exports.filterPost = (req,res) =>{
-    res.send(req.body)
 }

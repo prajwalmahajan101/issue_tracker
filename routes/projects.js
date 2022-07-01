@@ -15,11 +15,10 @@ const router = express.Router()
 //Request Handler  --->
 // get
 router.get('/:id',projectController.detail)
-router.get('/filter/:id',projectController.filterGet)
 
 //post
 router.post('/create',projectController.create)
-router.post('/filter_issues',projectController.filterPost)
+router.post('/filter_issues',projectController.filter)
 
 
 
